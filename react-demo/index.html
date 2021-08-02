@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Demo</title>
+</head>
+<body>
+  <h1>React Demo</h1>
+
+  <div id="simpleDiv">Simple Div</div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+  <script>
+
+    /*
+    setTimeout(() => {
+      document.getElementById('simpleDiv').innerText = 'Hacked !';
+    }, 3000)
+    */
+
+    const e = React.createElement;
+    const className = 'demo' + 666;
+
+    const simpleParagraph = e(
+      'p', 
+      { id: 'para', className, onClick: () => console.log('ok') }, 
+      'Simple paragraphe'
+    );
+
+    ReactDOM.render(
+      simpleParagraph,
+      document.getElementById('simpleDiv')
+    )
+
+   
+    
+
+  </script>
+  
+</body>
+</html>
