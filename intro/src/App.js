@@ -3,6 +3,7 @@ import Header from './components/Header';
 import { Simple, Simple2, PlayerList } from './components/examples';
 import { Counter } from './components/Counter';
 import { FormDemo } from './components/FormDemo';
+import { Socge } from './TP/socge/Socge';
 
 const players = [
   { id: 1, firstname: 'Gianluigi', lastname: 'Donnarumma', num: 1, inActivity: true},
@@ -13,12 +14,13 @@ const players = [
 function App() {
   return (
     <div>
-      <Header />
+      {/* <Header />
       <Simple />
       <Simple2 message="tout va bien" />
       <PlayerList dataSource={players} />
       <Counter />
-      <FormDemo />
+      <FormDemo /> */}
+      <Socge />
     </div>
   );
 }
