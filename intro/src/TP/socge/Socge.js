@@ -2,6 +2,7 @@ import './Socge.css';
 import { useState } from 'react';
 import { VirtualKb } from './VirtualKb';
 import { PasswordBox } from './PasswordBox';
+import { SwitchBtn } from './SwitchBtn';
 
 export function Socge() {
   const PASSWD_MAX_LEN  = 6;
@@ -9,11 +10,14 @@ export function Socge() {
   const [cond, setCond] = useState(false);
   const [boxes, setBoxes] = useState(Array(6).fill('_'));
   const [boxIndex, setBoxIndex] = useState(0);
+  const [vkbOn, setVkbOn] = useState(false);
+  const [infoOn, setInfoOn] = useState(false);
 
   function checkConditions(e) {
     let value = e.target.value;
     let cond = value.length === 8 && Number.isInteger(+value);
     setCond(cond);
+    if (!cond) setVkbOn(false);
   }
 
   function onSelectKey(value) {
@@ -27,7 +31,12 @@ export function Socge() {
 
   }
 
+  function onReset() {
+    setBoxes(Array(6).fill('_'));
+    setBoxIndex(0);
+  }
 
+  
   return(<>
     <h1>TP Socge</h1>
     <input
@@ -39,10 +48,14 @@ export function Socge() {
       placeholder="Saisissez votre code client" />
     
     <div id="record">
-        <button className="btnSwitch">non</button>
+        <SwitchBtn />
         <span>Se souvenir de moi</span>
-        <span className="btnInfo">i</span>
-        <div id="infoBox" className="hide">
+        <span 
+          className="btnInfo"
+          onMouseEnter={() => setInfoOn(true)}
+          onMouseLeave={() => setInfoOn(false)}
+        >i</span>
+        <div id="infoBox" className={ !infoOn ? 'hide' : ''}>
             <p>Se souvenir de moi</p>
             <p>En cochant cette case, votre code client sera mémorisé sur cet appareil.</p>
             <p>De cette manière vous n'aurez plus à le saisir lors de vos prochaines connexions.</p>
@@ -50,13 +63,17 @@ export function Socge() {
         </div>
     </div>
     
-    <PasswordBox boxes={boxes} />
-    <div className="clearfix"></div>
-    <VirtualKb onSelectKey={onSelectKey} />
-    
+    { cond && vkbOn &&
+      <>
+        <PasswordBox boxes={boxes} onReset={onReset} />
+        <div className="clearfix"></div>
+        <VirtualKb onSelectKey={onSelectKey} />
+      </>
+    }
+
     <div className="clearfix"></div>
     <button 
-      onClick={() => console.log('ok')} 
+      onClick={() => setVkbOn(true)} 
       id="btnValid" 
       disabled={!cond}
       className="btn">Valider</button>
